@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Finanzas Ágiles - Universidad Andina del Cusco</title>
+    <title>Smart Traffic Cusco - Seguridad Vial Inteligente</title>
     <!-- Librerías Externas -->
     <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
@@ -14,8 +14,8 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         :root {
-            --primary: #10b981;
-            --secondary: #3b82f6;
+            --primary: #ef4444;
+            --secondary: #f59e0b;
             --bg: #020617;
         }
         body { 
@@ -31,12 +31,12 @@
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .glass-card:hover {
-            border-color: rgba(16, 185, 129, 0.4);
+            border-color: rgba(239, 68, 68, 0.4);
             transform: translateY(-5px);
             box-shadow: 0 20px 40px -20px rgba(0,0,0,0.5);
         }
         .gradient-text {
-            background: linear-gradient(135deg, #10b981 0%, #3b82f6 100%);
+            background: linear-gradient(135deg, #ef4444 0%, #f59e0b 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -57,17 +57,17 @@
             position: absolute;
             width: 500px;
             height: 500px;
-            background: radial-gradient(circle, rgba(16, 185, 129, 0.15) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(239, 68, 68, 0.1) 0%, transparent 70%);
             border-radius: 50%;
             filter: blur(80px);
             z-index: -1;
         }
-        .animate-float {
-            animation: float 6s ease-in-out infinite;
+        .animate-pulse-slow {
+            animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
         }
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(1deg); }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
         }
     </style>
 </head>
@@ -77,7 +77,7 @@
     <script type="text/babel">
         const { useState, useEffect, useRef } = React;
 
-        const ChartSection = () => {
+        const TrafficChart = () => {
             const chartRef = useRef(null);
             const chartInstance = useRef(null);
 
@@ -85,32 +85,32 @@
                 if (chartInstance.current) chartInstance.current.destroy();
                 const ctx = chartRef.current.getContext('2d');
                 chartInstance.current = new Chart(ctx, {
-                    type: 'doughnut',
+                    type: 'bar',
                     data: {
-                        labels: ['Falta de Control', 'Desconocimiento Ganancia', 'Mezcla de Caja', 'Otros'],
+                        labels: ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'],
                         datasets: [{
-                            data: [45, 30, 15, 10],
-                            backgroundColor: ['#10b981', '#3b82f6', '#f59e0b', '#475569'],
-                            hoverOffset: 15,
-                            borderWidth: 0
+                            label: 'Infracciones Detectadas',
+                            data: [65, 59, 80, 81, 95, 120, 110],
+                            backgroundColor: '#ef4444',
+                            borderRadius: 8,
                         }]
                     },
                     options: {
                         plugins: { legend: { display: false } },
-                        cutout: '75%',
-                        responsive: true
+                        scales: {
+                            y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#64748b' } },
+                            x: { grid: { display: false }, ticks: { color: '#64748b' } }
+                        },
+                        responsive: true,
+                        maintainAspectRatio: false
                     }
                 });
                 return () => { if (chartInstance.current) chartInstance.current.destroy(); };
             }, []);
 
             return (
-                <div className="relative w-56 h-56 mx-auto group">
+                <div className="w-full h-64 mx-auto p-4 glass-card rounded-3xl">
                     <canvas ref={chartRef}></canvas>
-                    <div className="absolute inset-0 flex flex-col items-center justify-center transition-transform group-hover:scale-110">
-                        <span className="text-3xl font-black gradient-text">75%</span>
-                        <span className="text-[9px] text-slate-500 uppercase font-bold tracking-tighter">Riesgo Financiero</span>
-                    </div>
                 </div>
             );
         };
@@ -119,207 +119,189 @@
             const [activeTab, setActiveTab] = useState('problema');
 
             useEffect(() => {
-                if (window.lucide) window.lucide.createIcons();
+                if (window.lucide) {
+                    window.lucide.createIcons();
+                }
             }, [activeTab]);
 
             return (
                 <div className="min-h-screen">
                     <div className="blob top-[-100px] left-[-100px]"></div>
-                    <div className="blob bottom-[-100px] right-[-100px]" style={{background: 'radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 70%)'}}></div>
+                    <div className="blob bottom-[-100px] right-[-100px]" style={{background: 'radial-gradient(circle, rgba(245, 158, 11, 0.05) 0%, transparent 70%)'}}></div>
 
-                    {/* Navbar Institucional */}
+                    {/* Navbar */}
                     <nav className="fixed top-0 w-full z-50 px-6 py-4 flex justify-between items-center bg-slate-950/80 backdrop-blur-md border-b border-white/5">
                         <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 bg-emerald-500 rounded-xl flex items-center justify-center shadow-lg shadow-emerald-500/20">
-                                <i data-lucide="graduation-cap" className="text-slate-950 w-6 h-6"></i>
+                            <div className="w-10 h-10 bg-red-600 rounded-xl flex items-center justify-center shadow-lg shadow-red-600/20">
+                                <i data-lucide="shield-alert" className="text-white w-6 h-6"></i>
                             </div>
                             <div>
                                 <h3 className="text-xs font-bold text-white uppercase tracking-tighter leading-none">U. Andina del Cusco</h3>
-                                <p className="text-[10px] text-emerald-400 font-medium">Ingeniería de Sistemas</p>
+                                <p className="text-[10px] text-red-400 font-medium">Proyecto de Seguridad Vial</p>
                             </div>
                         </div>
                         <div className="text-right hidden md:block">
-                            <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">Semestre 2026-I</p>
-                            <p className="text-[10px] text-slate-300">Docente: Felix E. Vargas Quispe</p>
+                            <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">Sistemas 2026</p>
+                            <p className="text-[10px] text-slate-300 italic">Gestión de la Innovación</p>
                         </div>
                     </nav>
 
-                    {/* Hero Section */}
-                    <section className="pt-40 pb-20 px-6 text-center">
-                        <div className="animate-reveal" style={{animationDelay: '0.1s'}}>
-                            <span className="px-4 py-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-400 text-xs font-bold uppercase tracking-widest mb-6 inline-block">
-                                Gestión de la Innovación y Emprendimiento
+                    {/* Hero */}
+                    <header className="pt-40 pb-20 px-6 text-center">
+                        <div className="animate-reveal">
+                            <span className="px-4 py-1.5 rounded-full border border-red-500/30 bg-red-500/10 text-red-400 text-xs font-bold uppercase tracking-widest mb-6 inline-block">
+                                Intersecciones Críticas: Cuatro Carriles
                             </span>
                             <h1 className="text-6xl md:text-8xl font-black mb-6 tracking-tight leading-none">
-                                Finanzas <br/><span className="gradient-text">Inteligentes</span>
+                                Smart <br/><span className="gradient-text">Traffic Cusco</span>
                             </h1>
                             <p className="text-slate-400 max-w-2xl mx-auto text-lg mb-12">
-                                Resolviendo el caos de los emprendedores digitales mediante una herramienta de control simplificado y validación en tiempo real.
+                                Detección automatizada de infracciones mediante IA para reducir accidentes en las zonas de alto riesgo de la ciudad.
                             </p>
                         </div>
 
-                        {/* Equipo del PDF */}
-                        <div className="flex flex-wrap justify-center gap-4 animate-reveal" style={{animationDelay: '0.3s'}}>
+                        <div className="flex flex-wrap justify-center gap-4 animate-reveal" style={{animationDelay: '0.2s'}}>
                             {["Chacon Huaman F.", "Giraldo Alamirano R.", "Khuno Mamani C.", "Incarroca Condori J.", "Machaca Huillca E."].map((name, i) => (
-                                <div key={i} className="px-4 py-2 glass-card rounded-xl text-xs font-semibold text-slate-300 flex items-center gap-2">
-                                    <div className="w-2 h-2 rounded-full bg-emerald-500"></div> {name}
+                                <div key={i} className="px-4 py-2 glass-card rounded-xl text-xs font-semibold text-slate-300">
+                                    {name}
                                 </div>
                             ))}
                         </div>
-                    </section>
+                    </header>
 
-                    {/* Navegación de Contenido (PDF Workflow) */}
+                    {/* Dashboard Section */}
                     <section className="max-w-6xl mx-auto px-6 mb-20">
                         <div className="flex justify-center gap-2 mb-12 p-2 bg-slate-900/50 rounded-2xl border border-white/5 max-w-md mx-auto">
-                            {['problema', 'cliente', 'solucion'].map((tab) => (
+                            {[
+                                {id: 'problema', label: 'El Problema', icon: 'alert-triangle'},
+                                {id: 'solucion', label: 'Solución IA', icon: 'eye'},
+                                {id: 'impacto', label: 'Impacto', icon: 'activity'}
+                            ].map((tab) => (
                                 <button 
-                                    key={tab}
-                                    onClick={() => setActiveTab(tab)}
-                                    className={`flex-1 py-2 px-4 rounded-xl text-xs font-bold uppercase transition-all ${activeTab === tab ? 'bg-emerald-500 text-slate-950' : 'text-slate-500 hover:text-white'}`}
+                                    key={tab.id}
+                                    onClick={() => setActiveTab(tab.id)}
+                                    className={`flex-1 py-2 px-4 rounded-xl text-xs font-bold uppercase flex items-center justify-center gap-2 transition-all ${activeTab === tab.id ? 'bg-red-600 text-white shadow-lg shadow-red-600/30' : 'text-slate-500 hover:text-white'}`}
                                 >
-                                    {tab}
+                                    <i data-lucide={tab.icon} className="w-3.5 h-3.5"></i>
+                                    {tab.label}
                                 </button>
                             ))}
                         </div>
 
                         {activeTab === 'problema' && (
                             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 animate-reveal">
-                                <div className="glass-card p-10 rounded-[2.5rem] border-emerald-500/20">
-                                    <div className="w-12 h-12 bg-emerald-500/20 rounded-2xl flex items-center justify-center text-emerald-400 mb-6">
-                                        <i data-lucide="alert-circle" className="w-6 h-6"></i>
-                                    </div>
-                                    <h2 className="text-3xl font-bold mb-6">El Problema Identificado</h2>
+                                <div className="glass-card p-10 rounded-[2.5rem] border-red-500/20">
+                                    <h2 className="text-3xl font-bold mb-6">Cruces en Rojo</h2>
                                     <p className="text-slate-400 leading-relaxed mb-6">
-                                        Detectamos que los emprendedores que venden por redes sociales operan en la **incertidumbre**. No llevan un registro, lo que les impide saber si su negocio es realmente rentable.
+                                        En la Vía de Evitamiento y la Av. de la Cultura (intersección Cuatro Carriles), el respeto al semáforo es crítico pero frecuentemente ignorado.
                                     </p>
-                                    <ul className="space-y-4">
-                                        <li className="flex gap-3 text-sm text-slate-300">
-                                            <i data-lucide="x-circle" className="w-5 h-5 text-red-500"></i>
-                                            Control principalmente manual y limitado.
-                                        </li>
-                                        <li className="flex gap-3 text-sm text-slate-300">
-                                            <i data-lucide="x-circle" className="w-5 h-5 text-red-500"></i>
-                                            Riesgo alto de quiebra técnica por mala gestión.
-                                        </li>
-                                        <li className="flex gap-3 text-sm text-slate-300">
-                                            <i data-lucide="x-circle" className="w-5 h-5 text-red-500"></i>
-                                            Desorden entre gastos personales y del negocio.
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div className="flex flex-col justify-center items-center">
-                                    <ChartSection />
-                                    <div className="mt-8 grid grid-cols-2 gap-4 w-full">
-                                        <div className="p-4 glass-card rounded-2xl text-center">
-                                            <p className="text-2xl font-black text-emerald-400">85%</p>
-                                            <p className="text-[10px] text-slate-500 uppercase font-bold">Informalidad Digital</p>
+                                    <div className="space-y-6">
+                                        <div className="flex gap-4 items-start">
+                                            <div className="w-10 h-10 rounded-lg bg-red-500/10 flex items-center justify-center shrink-0">
+                                                <i data-lucide="hand" className="w-5 h-5 text-red-500"></i>
+                                            </div>
+                                            <div>
+                                                <h4 className="font-bold text-sm">Control Manual Limitado</h4>
+                                                <p className="text-xs text-slate-500">La policía no puede estar en todos los puntos 24/7.</p>
+                                            </div>
                                         </div>
-                                        <div className="p-4 glass-card rounded-2xl text-center">
-                                            <p className="text-2xl font-black text-blue-400">7/10</p>
-                                            <p className="text-[10px] text-slate-500 uppercase font-bold">Pierden dinero</p>
+                                        <div className="flex gap-4 items-start">
+                                            <div className="w-10 h-10 rounded-lg bg-orange-500/10 flex items-center justify-center shrink-0">
+                                                <i data-lucide="ZapOff" className="w-5 h-5 text-orange-500"></i>
+                                            </div>
+                                            <div>
+                                                <h4 className="font-bold text-sm">Falta de Detección Real</h4>
+                                                <p className="text-xs text-slate-500">No hay sistemas que capturen la placa del infractor al instante.</p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        )}
-
-                        {activeTab === 'cliente' && (
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 animate-reveal">
-                                {[
-                                    { t: "Conductores & Logística", d: "Personal de monitoreo que requiere eficiencia en control vial.", i: "truck", c: "blue" },
-                                    { t: "Emprendedores Digitales", d: "Pequeños vendedores que operan vía RRSS sin contabilidad formal.", i: "smartphone", c: "emerald" },
-                                    { t: "Transeúntes", d: "Beneficiarios indirectos de una mayor seguridad y orden vial.", i: "users", c: "purple" }
-                                ].map((obj, i) => (
-                                    <div key={i} className="glass-card p-8 rounded-[2rem] text-center">
-                                        <div className={`w-14 h-14 bg-${obj.c}-500/20 rounded-full mx-auto flex items-center justify-center text-${obj.c}-400 mb-6`}>
-                                            <i data-lucide={obj.i} className="w-7 h-7"></i>
+                                <div className="space-y-6">
+                                    <div className="glass-card p-6 rounded-3xl border-orange-500/10">
+                                        <h4 className="text-xs font-bold uppercase text-slate-500 mb-4 tracking-widest">Infracciones por Hora (Promedio)</h4>
+                                        <div className="flex justify-between items-end gap-2 h-32">
+                                            {[40, 70, 45, 90, 100, 60].map((h, i) => (
+                                                <div key={i} className="flex-1 bg-gradient-to-t from-red-600 to-orange-500 rounded-t-lg" style={{height: `${h}%`}}></div>
+                                            ))}
                                         </div>
-                                        <h3 className="text-lg font-bold mb-3">{obj.t}</h3>
-                                        <p className="text-sm text-slate-400">{obj.d}</p>
+                                        <div className="flex justify-between mt-2 text-[10px] text-slate-600 font-bold">
+                                            <span>08:00</span><span>12:00</span><span>18:00</span>
+                                        </div>
                                     </div>
-                                ))}
+                                </div>
                             </div>
                         )}
 
                         {activeTab === 'solucion' && (
-                            <div className="flex flex-col lg:flex-row items-center gap-16 animate-reveal">
-                                <div className="flex-1 order-2 lg:order-1">
-                                    <div className="relative animate-float">
-                                        <div className="absolute -inset-4 bg-emerald-500/20 blur-3xl rounded-full"></div>
-                                        <div className="relative w-64 h-[500px] glass-card rounded-[3rem] p-4 mx-auto border-emerald-500/30">
-                                            <div className="bg-slate-950 w-full h-full rounded-[2.5rem] p-6 flex flex-col">
-                                                <div className="w-1/3 h-1 bg-slate-800 mx-auto rounded-full mb-8"></div>
-                                                <h4 className="text-xs font-bold text-slate-500 mb-2 uppercase">Dashboard MVP</h4>
-                                                <div className="space-y-4">
-                                                    <div className="p-3 bg-emerald-500/10 rounded-xl border border-emerald-500/20">
-                                                        <p className="text-[8px] text-emerald-400 font-bold mb-1">VENTA REGISTRADA</p>
-                                                        <p className="text-xl font-bold">S/ 120.00</p>
-                                                    </div>
-                                                    <div className="p-3 bg-red-500/10 rounded-xl border border-red-500/20">
-                                                        <p className="text-[8px] text-red-400 font-bold mb-1">GASTO REGISTRADO</p>
-                                                        <p className="text-xl font-bold">S/ 45.00</p>
-                                                    </div>
-                                                    <div className="p-4 bg-blue-600 rounded-2xl text-center shadow-lg shadow-blue-500/20 mt-4 cursor-pointer">
-                                                        <p className="text-[8px] text-blue-100 font-bold mb-1 uppercase tracking-widest">Calcular Ganancia</p>
-                                                        <p className="text-2xl font-black text-white">S/ 75.00</p>
-                                                    </div>
-                                                </div>
-                                                <div className="mt-auto flex justify-around text-slate-600">
-                                                    <i data-lucide="home" className="w-5 h-5"></i>
-                                                    <i data-lucide="list" className="w-5 h-5"></i>
-                                                    <i data-lucide="settings" className="w-5 h-5"></i>
-                                                </div>
-                                            </div>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 animate-reveal">
+                                <div className="glass-card p-10 rounded-[2.5rem] bg-gradient-to-br from-red-600/10 to-transparent">
+                                    <h3 className="text-2xl font-black mb-6">MVP: Detección Automática</h3>
+                                    <p className="text-sm text-slate-400 mb-8 leading-relaxed">
+                                        Proponemos un sistema basado en Computer Vision que analiza el flujo vehicular y el estado del semáforo.
+                                    </p>
+                                    <div className="space-y-4">
+                                        <div className="p-4 bg-slate-900/50 rounded-2xl border border-white/5 flex items-center gap-4">
+                                            <i data-lucide="camera" className="text-red-400"></i>
+                                            <span className="text-xs font-medium">Cámaras de Alta Velocidad (LPR)</span>
+                                        </div>
+                                        <div className="p-4 bg-slate-900/50 rounded-2xl border border-white/5 flex items-center gap-4">
+                                            <i data-lucide="cpu" className="text-orange-400"></i>
+                                            <span className="text-xs font-medium">Algoritmo de Detección de Cruce Indebido</span>
+                                        </div>
+                                        <div className="p-4 bg-slate-900/50 rounded-2xl border border-white/5 flex items-center gap-4">
+                                            <i data-lucide="database" className="text-blue-400"></i>
+                                            <span className="text-xs font-medium">Registro Inmediato en Base de Datos</span>
                                         </div>
                                     </div>
                                 </div>
-                                <div className="flex-1 order-1 lg:order-2">
-                                    <h2 className="text-5xl font-black mb-8 leading-tight">Primer MVP: <br/><span className="gradient-text">Fácil y Rápido</span></h2>
-                                    <p className="text-slate-400 text-lg mb-8 italic">
-                                        "Sin contabilidad compleja, solo flujo básico de dinero para validar uso y necesidad."
-                                    </p>
-                                    <div className="space-y-4">
-                                        {[
-                                            { t: "Registrar Ventas", d: "Captura rápida de ingresos brutos." },
-                                            { t: "Registrar Gastos", d: "Control de egresos operativos." },
-                                            { t: "Cálculo Automático", d: "Visibilidad inmediata de la ganancia real." },
-                                            { t: "Reportes Simples", d: "Resumen semanal y mensual para toma de decisiones." }
-                                        ].map((f, i) => (
-                                            <div key={i} className="flex gap-4 p-4 hover:bg-white/5 rounded-2xl transition-colors">
-                                                <div className="w-10 h-10 rounded-xl bg-emerald-500/20 flex items-center justify-center text-emerald-400 shrink-0">
-                                                    <i data-lucide="check-circle-2" className="w-5 h-5"></i>
-                                                </div>
-                                                <div>
-                                                    <h4 className="font-bold">{f.t}</h4>
-                                                    <p className="text-xs text-slate-500">{f.d}</p>
-                                                </div>
-                                            </div>
-                                        ))}
+                                <div className="relative flex items-center justify-center">
+                                    <div className="w-64 h-64 border-4 border-red-600/30 rounded-full flex items-center justify-center animate-pulse-slow">
+                                        <div className="w-48 h-48 border-2 border-red-500/20 rounded-full flex items-center justify-center">
+                                            <i data-lucide="scan" className="w-20 h-20 text-red-500 opacity-50"></i>
+                                        </div>
+                                    </div>
+                                    <div className="absolute top-0 right-0 p-4 glass-card rounded-2xl">
+                                        <p className="text-[10px] font-bold text-red-400 uppercase">Estado: Activo</p>
+                                        <p className="text-xs font-black">Monitoreo Real-Time</p>
                                     </div>
                                 </div>
                             </div>
                         )}
+
+                        {activeTab === 'impacto' && (
+                            <div className="space-y-12 animate-reveal">
+                                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                    <div className="glass-card p-8 rounded-3xl text-center">
+                                        <h4 className="text-4xl font-black text-red-500 mb-2">-40%</h4>
+                                        <p className="text-xs text-slate-500 font-bold uppercase">Accidentes en 1er Año</p>
+                                    </div>
+                                    <div className="glass-card p-8 rounded-3xl text-center">
+                                        <h4 className="text-4xl font-black text-orange-500 mb-2">100%</h4>
+                                        <p className="text-xs text-slate-500 font-bold uppercase">Registro de Infracciones</p>
+                                    </div>
+                                    <div className="glass-card p-8 rounded-3xl text-center">
+                                        <h4 className="text-4xl font-black text-emerald-500 mb-2">+ Seguridad</h4>
+                                        <p className="text-xs text-slate-500 font-bold uppercase">Para el Peatón</p>
+                                    </div>
+                                </div>
+                                <TrafficChart />
+                            </div>
+                        )}
                     </section>
 
-                    {/* Impacto Final */}
-                    <footer className="py-20 px-6 bg-slate-950/50 border-t border-white/5 text-center">
+                    {/* Footer / Hipótesis */}
+                    <footer className="py-24 px-6 border-t border-white/5 bg-slate-950/50 text-center">
                         <div className="max-w-4xl mx-auto">
-                            <h2 className="text-3xl font-bold mb-12">Hipótesis de Solución</h2>
-                            <div className="glass-card p-12 rounded-[3rem] relative overflow-hidden">
-                                <div className="absolute top-0 right-0 p-8 opacity-10">
-                                    <i data-lucide="quote" className="w-24 h-24"></i>
-                                </div>
-                                <p className="text-xl text-slate-300 leading-relaxed relative z-10">
-                                    Creemos que los emprendedores digitales necesitan una herramienta simple de control financiero para resolver el problema de la **desorganización y desconocimiento** de sus ganancias reales.
+                            <h2 className="text-xs font-black text-red-500 uppercase tracking-[0.5em] mb-12">Nuestra Meta</h2>
+                            <div className="glass-card p-12 rounded-[3.5rem] relative overflow-hidden">
+                                <div className="absolute top-0 left-0 w-2 h-full bg-red-600"></div>
+                                <p className="text-2xl text-slate-200 leading-snug font-light italic">
+                                    "Creemos que implementando un <strong className="font-bold text-red-500 not-italic">sistema de foto-multas inteligente</strong> en Cusco, reduciremos drásticamente las muertes por imprudencia vial en intersecciones de alta velocidad."
                                 </p>
                             </div>
-                            <div className="mt-20 flex flex-col md:flex-row justify-between items-center gap-8 opacity-50 grayscale hover:grayscale-0 transition-all">
-                                <span className="font-bold text-xs uppercase tracking-widest">Gestión de la Innovación 2026</span>
-                                <div className="flex gap-4">
-                                    <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center"><i data-lucide="globe" className="w-4 h-4"></i></div>
-                                    <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center"><i data-lucide="github" className="w-4 h-4"></i></div>
-                                </div>
-                            </div>
+                            <p className="mt-12 text-[10px] text-slate-600 font-bold uppercase tracking-widest">
+                                Universidad Andina del Cusco • Ingeniería de Sistemas • 2026
+                            </p>
                         </div>
                     </footer>
                 </div>
