@@ -116,7 +116,7 @@
         };
 
         const App = () => {
-            const [activeTab, setActiveTab] = useState('problema');
+            const [activeTab, setActiveTab] = useState('intro');
 
             useEffect(() => {
                 if (window.lucide) {
@@ -156,7 +156,7 @@
                                 Smart <br/><span className="gradient-text">Traffic Cusco</span>
                             </h1>
                             <p className="text-slate-400 max-w-2xl mx-auto text-lg mb-12">
-                                Detección automatizada de infracciones mediante IA para reducir accidentes en las zonas de alto riesgo de la ciudad.
+                                Innovación tecnológica para la vigilancia y seguridad vial en las vías de mayor congestión de la ciudad imperial.
                             </p>
                         </div>
 
@@ -171,8 +171,9 @@
 
                     {/* Dashboard Section */}
                     <section className="max-w-6xl mx-auto px-6 mb-20">
-                        <div className="flex justify-center gap-2 mb-12 p-2 bg-slate-900/50 rounded-2xl border border-white/5 max-w-md mx-auto">
+                        <div className="flex justify-center gap-2 mb-12 p-2 bg-slate-900/50 rounded-2xl border border-white/5 max-w-2xl mx-auto overflow-x-auto">
                             {[
+                                {id: 'intro', label: 'Introducción', icon: 'book-open'},
                                 {id: 'problema', label: 'El Problema', icon: 'alert-triangle'},
                                 {id: 'solucion', label: 'Solución IA', icon: 'eye'},
                                 {id: 'impacto', label: 'Impacto', icon: 'activity'}
@@ -180,7 +181,7 @@
                                 <button 
                                     key={tab.id}
                                     onClick={() => setActiveTab(tab.id)}
-                                    className={`flex-1 py-2 px-4 rounded-xl text-xs font-bold uppercase flex items-center justify-center gap-2 transition-all ${activeTab === tab.id ? 'bg-red-600 text-white shadow-lg shadow-red-600/30' : 'text-slate-500 hover:text-white'}`}
+                                    className={`flex-1 py-2 px-4 min-w-max rounded-xl text-xs font-bold uppercase flex items-center justify-center gap-2 transition-all ${activeTab === tab.id ? 'bg-red-600 text-white shadow-lg shadow-red-600/30' : 'text-slate-500 hover:text-white'}`}
                                 >
                                     <i data-lucide={tab.icon} className="w-3.5 h-3.5"></i>
                                     {tab.label}
@@ -188,45 +189,93 @@
                             ))}
                         </div>
 
+                        {activeTab === 'intro' && (
+                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 animate-reveal">
+                                <div className="glass-card p-10 rounded-[2.5rem] border-blue-500/20">
+                                    <h2 className="text-3xl font-bold mb-6">Introducción</h2>
+                                    <p className="text-slate-400 leading-relaxed mb-6">
+                                        Cusco ha experimentado un crecimiento vehicular exponencial en la última década. Este incremento no ha sido acompañado por sistemas de control modernos, resultando en un caos vial en puntos críticos como la intersección de **Cuatro Carriles**.
+                                    </p>
+                                    <p className="text-slate-400 leading-relaxed">
+                                        El proyecto **Smart Traffic Cusco** surge como una respuesta tecnológica desde la Ingeniería de Sistemas para automatizar el control de infracciones y fomentar una cultura de respeto vial mediante el uso de Inteligencia Artificial.
+                                    </p>
+                                </div>
+                                <div className="grid grid-cols-2 gap-4">
+                                    <div className="glass-card p-6 rounded-3xl flex flex-col items-center text-center">
+                                        <div className="w-12 h-12 bg-red-500/20 rounded-2xl flex items-center justify-center mb-4">
+                                            <i data-lucide="target" className="text-red-500"></i>
+                                        </div>
+                                        <h4 className="text-sm font-black mb-1">Misión</h4>
+                                        <p className="text-[10px] text-slate-500 uppercase tracking-wider font-bold">Reducir Riesgos</p>
+                                    </div>
+                                    <div className="glass-card p-6 rounded-3xl flex flex-col items-center text-center">
+                                        <div className="w-12 h-12 bg-blue-500/20 rounded-2xl flex items-center justify-center mb-4">
+                                            <i data-lucide="brain" className="text-blue-500"></i>
+                                        </div>
+                                        <h4 className="text-sm font-black mb-1">Visión</h4>
+                                        <p className="text-[10px] text-slate-500 uppercase tracking-wider font-bold">Ciudad Inteligente</p>
+                                    </div>
+                                    <div className="glass-card p-6 rounded-3xl flex flex-col items-center text-center col-span-2">
+                                        <div className="w-12 h-12 bg-emerald-500/20 rounded-2xl flex items-center justify-center mb-4">
+                                            <i data-lucide="users" className="text-emerald-500"></i>
+                                        </div>
+                                        <h4 className="text-sm font-black mb-1">Público Objetivo</h4>
+                                        <p className="text-[10px] text-slate-500 leading-tight">Conductores, peatones y equipo logístico de monitoreo vial de la ciudad del Cusco.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
                         {activeTab === 'problema' && (
                             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 animate-reveal">
                                 <div className="glass-card p-10 rounded-[2.5rem] border-red-500/20">
-                                    <h2 className="text-3xl font-bold mb-6">Cruces en Rojo</h2>
-                                    <p className="text-slate-400 leading-relaxed mb-6">
-                                        En la Vía de Evitamiento y la Av. de la Cultura (intersección Cuatro Carriles), el respeto al semáforo es crítico pero frecuentemente ignorado.
-                                    </p>
+                                    <h2 className="text-3xl font-bold mb-6">Problema Identificado</h2>
                                     <div className="space-y-6">
-                                        <div className="flex gap-4 items-start">
-                                            <div className="w-10 h-10 rounded-lg bg-red-500/10 flex items-center justify-center shrink-0">
-                                                <i data-lucide="hand" className="w-5 h-5 text-red-500"></i>
-                                            </div>
-                                            <div>
-                                                <h4 className="font-bold text-sm">Control Manual Limitado</h4>
-                                                <p className="text-xs text-slate-500">La policía no puede estar en todos los puntos 24/7.</p>
-                                            </div>
+                                        <div className="p-4 bg-red-500/5 rounded-2xl border-l-4 border-red-500">
+                                            <p className="text-slate-300 text-sm leading-relaxed">
+                                                En las intersecciones de **cuatro carriles** de Cusco, el cruce en luz roja es una práctica recurrente y sumamente peligrosa.
+                                            </p>
                                         </div>
-                                        <div className="flex gap-4 items-start">
-                                            <div className="w-10 h-10 rounded-lg bg-orange-500/10 flex items-center justify-center shrink-0">
-                                                <i data-lucide="ZapOff" className="w-5 h-5 text-orange-500"></i>
-                                            </div>
-                                            <div>
-                                                <h4 className="font-bold text-sm">Falta de Detección Real</h4>
-                                                <p className="text-xs text-slate-500">No hay sistemas que capturen la placa del infractor al instante.</p>
-                                            </div>
-                                        </div>
+                                        <ul className="space-y-4">
+                                            {[
+                                                {t: "Control Manual", d: "El sistema actual depende de presencia policial física, la cual es limitada.", i: "hand"},
+                                                {t: "Inexistencia de Sistemas IA", d: "No hay detección automática ni procesamiento en tiempo real.", i: "zap-off"},
+                                                {t: "Alta Siniestralidad", d: "Incremento drástico en colisiones laterales y atropellos.", i: "activity"}
+                                            ].map((item, idx) => (
+                                                <li key={idx} className="flex gap-4">
+                                                    <i data-lucide={item.i} className="text-red-500 w-5 h-5 shrink-0 mt-1"></i>
+                                                    <div>
+                                                        <h4 className="text-sm font-bold">{item.t}</h4>
+                                                        <p className="text-xs text-slate-500">{item.d}</p>
+                                                    </div>
+                                                </li>
+                                            ))}
+                                        </ul>
                                     </div>
                                 </div>
-                                <div className="space-y-6">
-                                    <div className="glass-card p-6 rounded-3xl border-orange-500/10">
-                                        <h4 className="text-xs font-bold uppercase text-slate-500 mb-4 tracking-widest">Infracciones por Hora (Promedio)</h4>
+                                <div className="flex flex-col gap-6">
+                                    <div className="glass-card p-8 rounded-3xl border-orange-500/10 relative overflow-hidden">
+                                        <div className="absolute top-2 right-4 flex gap-1">
+                                            <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse"></div>
+                                            <span className="text-[8px] font-bold text-red-500 uppercase tracking-widest">Live Report</span>
+                                        </div>
+                                        <h4 className="text-xs font-bold uppercase text-slate-500 mb-6 tracking-widest">Frecuencia de Infracciones</h4>
                                         <div className="flex justify-between items-end gap-2 h-32">
-                                            {[40, 70, 45, 90, 100, 60].map((h, i) => (
-                                                <div key={i} className="flex-1 bg-gradient-to-t from-red-600 to-orange-500 rounded-t-lg" style={{height: `${h}%`}}></div>
+                                            {[40, 70, 45, 90, 100, 60, 85].map((h, i) => (
+                                                <div key={i} className="flex-1 bg-gradient-to-t from-red-600 to-orange-500 rounded-t-lg transition-all hover:brightness-125" style={{height: `${h}%`}}></div>
                                             ))}
                                         </div>
-                                        <div className="flex justify-between mt-2 text-[10px] text-slate-600 font-bold">
-                                            <span>08:00</span><span>12:00</span><span>18:00</span>
+                                        <div className="flex justify-between mt-3 text-[10px] text-slate-600 font-bold">
+                                            <span>L</span><span>M</span><span>M</span><span>J</span><span>V</span><span>S</span><span>D</span>
                                         </div>
+                                    </div>
+                                    <div className="p-6 bg-red-600 rounded-3xl shadow-xl shadow-red-600/20 text-white">
+                                        <h4 className="text-sm font-black mb-2 flex items-center gap-2">
+                                            <i data-lucide="info" className="w-4 h-4"></i> Factor de Riesgo
+                                        </h4>
+                                        <p className="text-xs opacity-90 leading-relaxed font-medium">
+                                            El 65% de los accidentes en cruces semaforizados se deben a vehículos que ignoran la señal de alto durante los primeros 3 segundos del cambio de luz.
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -235,34 +284,45 @@
                         {activeTab === 'solucion' && (
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 animate-reveal">
                                 <div className="glass-card p-10 rounded-[2.5rem] bg-gradient-to-br from-red-600/10 to-transparent">
-                                    <h3 className="text-2xl font-black mb-6">MVP: Detección Automática</h3>
-                                    <p className="text-sm text-slate-400 mb-8 leading-relaxed">
-                                        Proponemos un sistema basado en Computer Vision que analiza el flujo vehicular y el estado del semáforo.
+                                    <h3 className="text-2xl font-black mb-6">Hipótesis de Solución</h3>
+                                    <p className="text-sm text-slate-400 mb-8 leading-relaxed italic border-l-2 border-red-500 pl-4">
+                                        "Creemos que la automatización de la vigilancia mediante un MVP basado en Computer Vision permitirá reducir las infracciones en un 40% al generar un efecto disuasivo inmediato."
                                     </p>
                                     <div className="space-y-4">
-                                        <div className="p-4 bg-slate-900/50 rounded-2xl border border-white/5 flex items-center gap-4">
+                                        <div className="p-4 bg-slate-900/50 rounded-2xl border border-white/5 flex items-center gap-4 transition-colors hover:bg-red-500/5">
                                             <i data-lucide="camera" className="text-red-400"></i>
-                                            <span className="text-xs font-medium">Cámaras de Alta Velocidad (LPR)</span>
+                                            <div>
+                                                <h5 className="text-[10px] font-bold text-slate-500 uppercase">Hardware</h5>
+                                                <span className="text-xs font-medium">Cámaras IP de Alta Velocidad (LPR)</span>
+                                            </div>
                                         </div>
-                                        <div className="p-4 bg-slate-900/50 rounded-2xl border border-white/5 flex items-center gap-4">
+                                        <div className="p-4 bg-slate-900/50 rounded-2xl border border-white/5 flex items-center gap-4 transition-colors hover:bg-orange-500/5">
                                             <i data-lucide="cpu" className="text-orange-400"></i>
-                                            <span className="text-xs font-medium">Algoritmo de Detección de Cruce Indebido</span>
+                                            <div>
+                                                <h5 className="text-[10px] font-bold text-slate-500 uppercase">Procesamiento</h5>
+                                                <span className="text-xs font-medium">Algoritmo de Detección de Trayectorias</span>
+                                            </div>
                                         </div>
-                                        <div className="p-4 bg-slate-900/50 rounded-2xl border border-white/5 flex items-center gap-4">
+                                        <div className="p-4 bg-slate-900/50 rounded-2xl border border-white/5 flex items-center gap-4 transition-colors hover:bg-blue-500/5">
                                             <i data-lucide="database" className="text-blue-400"></i>
-                                            <span className="text-xs font-medium">Registro Inmediato en Base de Datos</span>
+                                            <div>
+                                                <h5 className="text-[10px] font-bold text-slate-500 uppercase">Gestión</h5>
+                                                <span className="text-xs font-medium">App Web para el Control de Monitoreo</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div className="relative flex items-center justify-center">
-                                    <div className="w-64 h-64 border-4 border-red-600/30 rounded-full flex items-center justify-center animate-pulse-slow">
+                                <div className="relative flex flex-col items-center justify-center p-8">
+                                    <div className="w-64 h-64 border-4 border-red-600/30 rounded-full flex items-center justify-center animate-pulse-slow relative">
                                         <div className="w-48 h-48 border-2 border-red-500/20 rounded-full flex items-center justify-center">
                                             <i data-lucide="scan" className="w-20 h-20 text-red-500 opacity-50"></i>
                                         </div>
+                                        {/* Scanner bar effect */}
+                                        <div className="absolute top-1/2 left-0 w-full h-[2px] bg-red-500 shadow-[0_0_15px_rgba(239,68,68,0.8)] animate-[scan_3s_ease-in-out_infinite]"></div>
                                     </div>
-                                    <div className="absolute top-0 right-0 p-4 glass-card rounded-2xl">
-                                        <p className="text-[10px] font-bold text-red-400 uppercase">Estado: Activo</p>
-                                        <p className="text-xs font-black">Monitoreo Real-Time</p>
+                                    <div className="mt-8 text-center">
+                                        <h4 className="text-lg font-black uppercase tracking-widest text-red-500">MVP 01</h4>
+                                        <p className="text-xs text-slate-500 max-w-xs mt-2">Detección de placa, captura de evidencia y registro automático en el dashboard.</p>
                                     </div>
                                 </div>
                             </div>
@@ -271,17 +331,26 @@
                         {activeTab === 'impacto' && (
                             <div className="space-y-12 animate-reveal">
                                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                                    <div className="glass-card p-8 rounded-3xl text-center">
+                                    <div className="glass-card p-8 rounded-3xl text-center group">
+                                        <div className="w-12 h-12 bg-red-500/10 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-red-500 group-hover:text-white transition-colors">
+                                            <i data-lucide="shield" className="w-6 h-6"></i>
+                                        </div>
                                         <h4 className="text-4xl font-black text-red-500 mb-2">-40%</h4>
-                                        <p className="text-xs text-slate-500 font-bold uppercase">Accidentes en 1er Año</p>
+                                        <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">Accidentes Previstos</p>
                                     </div>
-                                    <div className="glass-card p-8 rounded-3xl text-center">
-                                        <h4 className="text-4xl font-black text-orange-500 mb-2">100%</h4>
-                                        <p className="text-xs text-slate-500 font-bold uppercase">Registro de Infracciones</p>
+                                    <div className="glass-card p-8 rounded-3xl text-center group">
+                                        <div className="w-12 h-12 bg-orange-500/10 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-orange-500 group-hover:text-white transition-colors">
+                                            <i data-lucide="clock" className="w-6 h-6"></i>
+                                        </div>
+                                        <h4 className="text-4xl font-black text-orange-500 mb-2">24/7</h4>
+                                        <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">Monitoreo Ininterrumpido</p>
                                     </div>
-                                    <div className="glass-card p-8 rounded-3xl text-center">
-                                        <h4 className="text-4xl font-black text-emerald-500 mb-2">+ Seguridad</h4>
-                                        <p className="text-xs text-slate-500 font-bold uppercase">Para el Peatón</p>
+                                    <div className="glass-card p-8 rounded-3xl text-center group">
+                                        <div className="w-12 h-12 bg-emerald-500/10 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-emerald-500 group-hover:text-white transition-colors">
+                                            <i data-lucide="check-circle" className="w-6 h-6"></i>
+                                        </div>
+                                        <h4 className="text-4xl font-black text-emerald-500 mb-2">100%</h4>
+                                        <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">Registro de Infracciones</p>
                                     </div>
                                 </div>
                                 <TrafficChart />
@@ -289,19 +358,22 @@
                         )}
                     </section>
 
-                    {/* Footer / Hipótesis */}
-                    <footer className="py-24 px-6 border-t border-white/5 bg-slate-950/50 text-center">
-                        <div className="max-w-4xl mx-auto">
-                            <h2 className="text-xs font-black text-red-500 uppercase tracking-[0.5em] mb-12">Nuestra Meta</h2>
-                            <div className="glass-card p-12 rounded-[3.5rem] relative overflow-hidden">
-                                <div className="absolute top-0 left-0 w-2 h-full bg-red-600"></div>
+                    {/* Footer / Meta Final */}
+                    <footer className="py-24 px-6 border-t border-white/5 bg-slate-950/50 text-center relative overflow-hidden">
+                        <div className="blob bottom-[-200px] left-1/2 -translate-x-1/2 opacity-20"></div>
+                        <div className="max-w-4xl mx-auto relative z-10">
+                            <h2 className="text-xs font-black text-red-500 uppercase tracking-[0.5em] mb-12 animate-pulse">Conclusión</h2>
+                            <div className="glass-card p-12 rounded-[3.5rem] relative overflow-hidden text-center">
                                 <p className="text-2xl text-slate-200 leading-snug font-light italic">
-                                    "Creemos que implementando un <strong className="font-bold text-red-500 not-italic">sistema de foto-multas inteligente</strong> en Cusco, reduciremos drásticamente las muertes por imprudencia vial en intersecciones de alta velocidad."
+                                    "Nuestro compromiso es transformar el Cusco en una <strong className="font-bold text-red-500 not-italic">Smart City</strong> donde la tecnología salvaguarde la vida de cada ciudadano mediante un tráfico ordenado y vigilado."
                                 </p>
                             </div>
-                            <p className="mt-12 text-[10px] text-slate-600 font-bold uppercase tracking-widest">
-                                Universidad Andina del Cusco • Ingeniería de Sistemas • 2026
-                            </p>
+                            <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4">
+                                <div className="text-[10px] font-bold text-slate-600 uppercase">Ingeniería de Sistemas</div>
+                                <div className="text-[10px] font-bold text-slate-600 uppercase tracking-widest">UAC - 2026</div>
+                                <div className="text-[10px] font-bold text-slate-600 uppercase">Innovación</div>
+                                <div className="text-[10px] font-bold text-slate-600 uppercase">Cusco - Perú</div>
+                            </div>
                         </div>
                     </footer>
                 </div>
@@ -311,5 +383,11 @@
         const root = ReactDOM.createRoot(document.getElementById('root'));
         root.render(<App />);
     </script>
+    <style>
+        @keyframes scan {
+            0%, 100% { transform: translateY(-32px); opacity: 0.2; }
+            50% { transform: translateY(32px); opacity: 0.8; }
+        }
+    </style>
 </body>
 </html>
